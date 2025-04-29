@@ -66,10 +66,6 @@ public class OpenAiServiceImpl implements AiService {
                 .onErrorResume(WebClientResponseException.class, e -> {
                     logger.error("OpenAI API error: Status={}, Body={}", e.getStatusCode(), e.getResponseBodyAsString(), e);
                     return Mono.error(new RuntimeException("Error calling OpenAI API: " + e.getResponseBodyAsString()));
-                })
-                .onErrorResume(e -> {
-                    logger.error("Generic error calling OpenAI API", e);
-                    return Mono.error(new RuntimeException("An unexpected error occurred while calling OpenAI API.", e));
                 });
     }
 }
